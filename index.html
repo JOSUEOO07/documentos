@@ -343,7 +343,7 @@ document.querySelectorAll('[data-go="ext"]').forEach(b => b.onclick = () => { fi
 /* ---------- archivos y compartir ---------- */
 const MIME = { pdf: "application/pdf", docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" };
 const nombre = (d, ext) => ("CBO - " + d.t).replace(/[–—]/g, "-").replace(/[\\/:*?"<>|]/g, "") + "." + ext;
-const url = (d, ext) => "docs/" + d.id + "." + ext;
+const url = (d, ext) => d.id + "." + ext;
 async function archivo(d, ext) {
   const k = d.id + "." + ext;
   if (!archivos.has(k)) archivos.set(k, fetch(url(d, ext)).then(r => { if (!r.ok) throw 0; return r.blob(); }).then(b => new File([b], nombre(d, ext), { type: MIME[ext] })));
@@ -408,7 +408,7 @@ $("#bSearch").onclick = () => { const s = $("#sbox"); s.classList.toggle("on"); 
 $("#q").oninput = e => { q = e.target.value; if (q && filtro === "ext") filtro = "todos"; pintar(); };
 $("#bClear").onclick = e => { e.preventDefault(); q = ""; $("#q").value = ""; $("#q").focus(); pintar(); };
 document.querySelectorAll("[data-zip]").forEach(b => b.onclick = () => {
-  const t = b.dataset.zip, a = document.createElement("a"); a.href = "docs/CBO_Documentos_" + t + ".zip"; a.download = "CBO_Documentos_" + t + ".zip"; a.click(); toast("Descargando todo en " + t + "…"); cerrar();
+  const t = b.dataset.zip, a = document.createElement("a"); a.href = "CBO_Documentos_" + t + ".zip"; a.download = "CBO_Documentos_" + t + ".zip"; a.click(); toast("Descargando todo en " + t + "…"); cerrar();
 });
 addEventListener("scroll", () => $("#fab").classList.toggle("on", scrollY > 500), { passive: true });
 $("#fab").onclick = () => scrollTo({ top: 0, behavior: "smooth" });
